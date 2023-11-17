@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:jobscale/athena.git"
+    "url": "git+https://github.com/jobscale/athena.git"
   },
   "keywords": [],
   "author": "jobscale <jobscale@users.noreply.github.com>",
   "license": "MIT",
   "bugs": {
-    "url": "git@github.com:jobscale/athena/issues"
+    "url": "https://github.com/jobscale/athena/issues"
   },
-  "homepage": "git@github.com:jobscale/athena#readme"
+  "homepage": "https://github.com/jobscale/athena#readme"
 }
