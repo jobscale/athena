@@ -108,7 +108,8 @@ class AthenaQuery {
         return;
       }
       setTimeout((...args) => this.waitForExecution(...args), tryMilliseconds, options, extras);
-    });
+    })
+    .catch(e => reject(e));
 
     return pending;
   }
