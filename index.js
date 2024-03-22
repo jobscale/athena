@@ -94,8 +94,9 @@ class AthenaQuery {
       prom: { pending, resolve, reject },
     } = options;
 
-    this.getExecution({ QueryExecutionId }).then(status => {
-      if (status.State === 'SUCCEEDED') {
+    this.getExecution({ QueryExecutionId })
+    .then(({ State }) => {
+      if (State === 'SUCCEEDED') {
         logger.debug({
           benchmark: new Date().getTime() - options.prom.ms,
           QueryExecutionId,
@@ -103,8 +104,8 @@ class AthenaQuery {
         resolve({ QueryExecutionId });
         return;
       }
-      if (['FAILED', 'CANCELLED'].includes(status.State)) {
-        reject(new Error(`Query ${status.State}`));
+      if (['FAILED', 'CANCELLED'].includes(State)) {
+        reject(new Error(`Query ${State}`));
         return;
       }
       setTimeout((...args) => this.waitForExecution(...args), tryMilliseconds, options, extras);
