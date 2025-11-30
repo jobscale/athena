@@ -34,9 +34,9 @@ describe('AthenaQuery', () => {
       OutputLocation: 's3://athena-query-results/athena-query-results/',
     });
 
-    // Default to SUCCEEDED to see if it fixes waitForExecution
+    // Default to SUCCEEDED
     mockSend = jest.fn().mockResolvedValue({
-      QueryExecution: { Status: 'SUCCEEDED' },
+      QueryExecution: { Status: { State: 'SUCCEEDED' } },
     });
 
     if (athenaInstance) {
@@ -110,10 +110,10 @@ describe('AthenaQuery', () => {
   describe('getExecution', () => {
     it('should return execution status', async () => {
       mockSend.mockResolvedValue({
-        QueryExecution: { Status: 'SUCCEEDED' },
+        QueryExecution: { Status: { State: 'SUCCEEDED' } },
       });
       const status = await athenaQuery.getExecution({ QueryExecutionId: '123' });
-      expect(status).toBe('SUCCEEDED');
+      expect(status).toEqual({ State: 'SUCCEEDED' });
       expect(GetQueryExecutionCommand).toHaveBeenCalledWith({ QueryExecutionId: '123' });
     });
   });
@@ -121,15 +121,13 @@ describe('AthenaQuery', () => {
   describe('waitForExecution', () => {
     it('should resolve when status is SUCCEEDED', async () => {
       // mockSend already returns SUCCEEDED by default
-      console.log('Starting waitForExecution test');
       const result = await athenaQuery.waitForExecution({ QueryExecutionId: '123' });
-      console.log('waitForExecution resolved');
       expect(result).toEqual({ QueryExecutionId: '123' });
     });
 
     it('should reject when status is FAILED', async () => {
       mockSend.mockResolvedValue({
-        QueryExecution: { Status: 'FAILED' },
+        QueryExecution: { Status: { State: 'FAILED' } },
       });
       await expect(athenaQuery.waitForExecution({ QueryExecutionId: '123' }))
       .rejects.toThrow('Query FAILED');
