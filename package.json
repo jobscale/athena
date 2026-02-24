@@ -1,6 +1,6 @@
 {
   "name": "@jobscale/athena",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "athena query helper",
   "repository": {
     "type": "git",
@@ -26,12 +26,12 @@
   },
   "pre-commit": "test",
   "dependencies": {
-    "@aws-sdk/client-athena": "^3.940.0"
+    "@aws-sdk/client-athena": "^3.996.0"
   },
   "devDependencies": {
-    "@jobscale/eslint-plugin-standard": "^0.0.8",
-    "eslint": "^9.39.1",
-    "eslint-plugin-jest": "^29.2.1",
+    "@jobscale/eslint-plugin-standard": "^0.0.12",
+    "eslint": "^10.0.2",
+    "eslint-plugin-jest": "^29.15.0",
     "jest": "^30.2.0",
     "pre-commit": "^1.2.2"
   }

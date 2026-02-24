@@ -108,7 +108,7 @@ export class AthenaQuery {
         reject(new Error(`Query ${State}`));
         return;
       }
-      setTimeout((...args) => this.waitForExecution(...args), tryMilliseconds, options, extras);
+      setTimeout((...args) => { this.waitForExecution(...args); }, tryMilliseconds, options, extras);
     })
     .catch(e => reject(e));
 
